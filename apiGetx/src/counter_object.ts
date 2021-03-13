@@ -1,4 +1,4 @@
-const usersLength = 1000;
+const usersLength = 100;
 
 const users = new Array(usersLength);
 

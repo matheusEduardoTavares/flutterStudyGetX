@@ -45,11 +45,19 @@ class HomeController extends GetxController {
   ///Sempre é interessante criar getters para proteger
   ///os observáveis
   int get limit => _paginationFilter.value.limit;
+  int get _page => _paginationFilter.value.page;
+  bool get lastPage => _lastPage.value;
 
   void changeTotalPerPage(int limitValue) {
     _users.clear();
+    _lastPage.value = false;
     _changePaginationFilter(1, limitValue);
   }
+
+  void nextPage() => _changePaginationFilter(
+    _page + 1, 
+    limit
+  );
 
   @override 
   void onInit() {
@@ -82,6 +90,7 @@ class HomeController extends GetxController {
   }
 
   void _findUsers() async {
+    print('_findUsers $_paginationFilter');
     final usersData = await _userRepository.findAll(
       _paginationFilter.value,
     );

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-const YOUR_IP_HERE = '192.168.4.148';
+const YOUR_IP_HERE = '127.0.0.1';
 
 ///O próprio GetX faz a gerência das instâncias, e isso
 ///economiza memória. Então o que ficar aqui no

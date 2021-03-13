@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infiniteScrollWithGetxDio/modules/home/controller/home_controller.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+
+///Além de todos esses ganhos, o GetX possui muitos 
+///outros recursos como por exemplo a boa organização
+///da gerência de estado, em que há vários métodos de
+///ciclo de vida como o [onClosed]; caso precisemos 
+///trabalhar com streams temos suporte também; temos
+///o [onReady] para quando a página já está pronta;
+///temos a parte de dependências e muitas outras coisas
 
 ///Podemos extender o [GetView<HomeController>] aqui para
 ///pegar o controller automaticamente sem ter que passar
@@ -53,18 +62,32 @@ class HomePage extends StatelessWidget {
       ///utiliza reatividade e é mais voltado para [Provider],
       ///ou [GetX] que é um widget que tem algumas outras
       ///vantagens, como quando queremos inicializar uma classe,
-      ///uma controller ou algo assim; e temos também o [Obx]
-      body: Obx(() => ListView.builder(
-        itemCount: _controller.users.length,
-        itemBuilder: (ctx, index) {
-          final user = _controller.users[index];
+      ///uma controller ou algo assim; e temos também o [Obx].
+      ///Usaremos uma lib chamada [lazy_load_scrollview] para
+      ///poder fazer um wrapper do [ListView.builder] de 
+      ///forma que fica fácil controlar quando chegou no 
+      ///fim das opções, para que quando isso ocorrer, 
+      ///possamos mudar de página.
+      body: Obx(() => LazyLoadScrollView(
+        onEndOfPage: () => _controller.nextPage(),
+        ///Ao chegar na última página não queremos 
+        ///mais ficar atualizando a página, pois não
+        ///há mais dados para buscar, então 
+        ///trabalhamos com o [isLoading] do [LazyLoadScrollView]
+        isLoading: _controller.lastPage,
+        child: ListView.builder(
+          
+          itemCount: _controller.users.length,
+          itemBuilder: (ctx, index) {
+            final user = _controller.users[index];
 
-          return ListTile(
-            leading: Text(user.id),
-            title: Text(user.name),
-            subtitle: Text(user.username),
-          );
-        })),
+            return ListTile(
+              leading: Text(user.id),
+              title: Text(user.name),
+              subtitle: Text(user.username),
+            );
+          }),
+      )),
     );
   }
 }
