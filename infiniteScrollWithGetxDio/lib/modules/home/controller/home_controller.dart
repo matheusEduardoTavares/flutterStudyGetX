@@ -42,6 +42,15 @@ class HomeController extends GetxController {
   ///não precisamos usar [StatefulWidget] usando o GetX,
   ///salvo poucas exceções.
 
+  ///Sempre é interessante criar getters para proteger
+  ///os observáveis
+  int get limit => _paginationFilter.value.limit;
+
+  void changeTotalPerPage(int limitValue) {
+    _users.clear();
+    _changePaginationFilter(1, limitValue);
+  }
+
   @override 
   void onInit() {
     ///Não é interessante chamarmos aqui na mão a 

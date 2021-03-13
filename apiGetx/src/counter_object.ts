@@ -1,8 +1,10 @@
-const users = new Array(100);
+const usersLength = 1000;
+
+const users = new Array(usersLength);
 
 let counter = 1;
 
-for(let index = 0; index < 100; index++){
+for(let index = 0; index < usersLength; index++){
     users[index] = {
         'name': `name${counter}`,
         'id': `id${counter}`,
