@@ -44,8 +44,30 @@ class HomeController extends GetxController {
 
   @override 
   void onInit() {
+    ///Não é interessante chamarmos aqui na mão a 
+    ///função para buscar os usuários. Isso pode ser
+    ///melhorado um pouco. O GetX tem as reactions que
+    ///são observadores, listeners para buscar as
+    ///coisas. Nós os chamamos de workers. Temos vários
+    ///workers muito interessantes, como o [debounce], o
+    ///[timeout]. E temos um que chama [ever]. Esse [ever]
+    ///irá ficar escutando para sempre que acontecer uma
+    ///alteração dentro do listener, será chamado algum 
+    ///método, executar alguma coisa. Temos também o 
+    ///[once], que irá executar uma única vez. Temos ainda
+    ///outros.
+    // _findUsers();
+
+    ///Agora sempre que nosso pagination for alterado,
+    ///a função de buscar os usuários será chamada.
+    ever(_paginationFilter, (_) => _findUsers());
+
+    ///De início ao chamar o [_changePaginationFilter]
+    ///agora, automaticamente o ever captura que o 
+    ///[_paginationFilter] é alterado e então já chama o
+    ///[_findUsers], fazendo que já tenhamos de início 
+    ///os usuários da página 1
     _changePaginationFilter(1, 15);
-    _findUsers();
 
     super.onInit();
   }

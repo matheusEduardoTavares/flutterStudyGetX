@@ -7,8 +7,6 @@ const routes = Router();
 routes.get('/users', (request: Request, response: Response) => {
     const { page = 1, limit = 1 } = request.query
 
-    console.log('page', page, 'limit', limit);
-
     const pageValue = Number(page.toString()) || 1;
     const limitValue = Number(limit.toString()) || 1;
 
