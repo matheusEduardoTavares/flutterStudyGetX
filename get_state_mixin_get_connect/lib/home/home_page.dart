@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_state_mixin_get_connect/home/components/grid_gifs.dart';
 import 'package:get_state_mixin_get_connect/home/home_page_controller.dart';
 
 ///A [GetView] é um StatelessComponent e a 
@@ -46,7 +47,21 @@ class HomePage extends GetView<HomePageController> {
         title: Text('Home Page'),
         centerTitle: true,
       ),
-      body: Container()
+      ///Por estarmos usando o [StateMixin], através 
+      ///da controller podemos acessar um método chamado
+      ///[obx] que retorna o estado que precisamos, e que
+      ///podemos passar o widget que queremos mostrar no 
+      ///[onError] e no [onLoading]. Caso não passemos o 
+      ///[onLoading], automaticamente é feito para nós um
+      ///[CircularProgressIndicator], então não precisamos
+      ///o adicionar mas podemos customizá-lo caso queiramos
+      body: controller.obx(
+        (state) => GridGifs(gifs: state),
+        onError: (error) => Center(
+          child: Text(error),
+        ),
+        // onLoading: Center(child: Text('Carregando')),
+      )
     );
   }
 }
