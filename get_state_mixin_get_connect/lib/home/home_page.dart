@@ -8,6 +8,16 @@ import 'package:get_state_mixin_get_connect/home/home_page_controller.dart';
 ///passamos o controller que queremos que seja
 ///recebido automaticamente aqui
 class HomePage extends GetView<HomePageController> {
+  ///Para fazermos requisições a API do giphy, usaremos
+  ///o [GetConnect] que é um concorrente direto do 
+  ///[Http] e do [Dio]. Trouxe para dentro do micro-framework
+  ///essa funcionalidade para fazer as requisições. Por
+  ///debaixo do pano, esse [GetConnect] não usa nem o 
+  ///[http] e nem o [Dio] para requisições. Já o [Dio]
+  ///usa por debaixo dos panos o [http]. Já o [http] 
+  ///usa o dart, e o [GetConnect] é uma outra implementação
+  ///em dart também.
+
   @override
   Widget build(BuildContext context) {
     ///Aqui temos uma instância de controller. Porém,
